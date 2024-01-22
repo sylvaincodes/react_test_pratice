@@ -4,9 +4,8 @@ import ReactDOM from "react-dom/client";
 import App from "../App";
 
 describe("App", () => {
-
-
   let container;
+
   beforeEach(() => {
     container = document.createElement("div");
     document.body.appendChild(container);
@@ -36,13 +35,13 @@ describe("App", () => {
   });
 
   // we use  React Testing Library utils.
-  it("should click the button", () => {
+  it("should click the button", async () => {
     // Arrange
     render(<App />); // on utilise la fonction render de react testing qui contient deja act
 
     //ACT
     const button = screen.getByRole("button"); // recupere l'element button avec screen (body)
-    fireEvent.click(button);
+    await fireEvent.click(button);
 
     //Assertion : une bout de code qui teste si une logique est vraie ou fausse
     expect(button.textContent).toBe("clicked");
