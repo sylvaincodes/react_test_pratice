@@ -1,9 +1,15 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import { act } from "react-dom/test-utils";
+import {
+  render,
+  screen,
+  fireEvent,
+  act,
+  waitFor,
+} from "@testing-library/react";
+// import { act } from "react-dom/test-utils";
 import ReactDOM from "react-dom/client";
-import App from "../src/App";
+import Home from "../src/components/Home";
 
-describe("App", () => {
+describe("<Home Components/>", () => {
   let container;
 
   beforeEach(() => {
@@ -19,14 +25,14 @@ describe("App", () => {
   it("should render without crash", () => {
     // Arrange
     act(() => {
-      ReactDOM.createRoot(container).render(<App />);
+      ReactDOM.createRoot(container).render(<Home />);
     });
   });
 
   it("should get h1 content", () => {
     // Arrange
     act(() => {
-      ReactDOM.createRoot(container).render(<App />);
+      ReactDOM.createRoot(container).render(<Home />);
     });
 
     // Assertion
@@ -37,11 +43,15 @@ describe("App", () => {
   // we use  React Testing Library utils.
   it("should click the button", async () => {
     // Arrange
-    render(<App />); // on utilise la fonction render de react testing qui contient deja act
+    const { rerender } = render(<Home />); // on utilise la fonction render de react testing qui contient deja act
 
     //ACT
     const button = screen.getByRole("button"); // recupere l'element button avec screen (body)
-    await fireEvent.click(button);
+    await waitFor(() => {
+      fireEvent.click(button);
+    });
+
+    rerender(<Home />);
 
     //Assertion : une bout de code qui teste si une logique est vraie ou fausse
     expect(button.textContent).toBe("clicked");

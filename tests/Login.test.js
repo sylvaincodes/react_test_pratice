@@ -2,7 +2,7 @@ import { render, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom/jest-globals";
 import Login from "../src/components/Login";
 
-describe("Login", () => {
+describe("<Login/>", () => {
   let container;
   let fakeUser;
 

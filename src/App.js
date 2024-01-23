@@ -1,29 +1,16 @@
-import React, { useState } from "react";
-import { Button } from "@mui/material";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import React, { lazy } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-function App() {
-  const [action, setAction] = useState("action");
-  const handleClick = () => {
-    setAction("clicked");
-  };
+const Home = lazy(() => import("./components/Home"));
+
+const App = () => {
   return (
-    <>
-      <Header />
-      <main>
-        <div className="container">
-          <div className="row">
-            <h1>App is working</h1>
-            <Button variant="contained" onClick={handleClick}>
-              {action}
-            </Button>
-          </div>
-        </div>
-      </main>
-      <Footer />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" exact element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
