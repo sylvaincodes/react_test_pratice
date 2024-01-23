@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import ReactDOM from "react-dom/client";
-import App from "../App";
+import App from "../src/App";
 
 describe("App", () => {
   let container;
