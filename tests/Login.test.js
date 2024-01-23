@@ -1,7 +1,6 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom/jest-globals";
-import Login from "../src/Login";
-import { MemoryRouter } from "react-router-dom";
+import Login from "../src/components/Login";
 
 describe("Login", () => {
   let container;
@@ -22,19 +21,15 @@ describe("Login", () => {
     container = null;
   });
 
-  it("should submit form", async () => {
+  it("should render and submit form", async () => {
     // Arrange
-    render(
-      <MemoryRouter>
-        <Login />
-      </MemoryRouter>
-    );
+    const { container, getByRole, getByLabelText } = render(<Login />);
 
     //Act
-    const heading = screen.getByRole("heading");
-    const email = screen.getByRole("textbox", { name: /email/i });
-    const password = screen.getByLabelText(/password/i);
-    const formLogin = screen.getByRole("form", { name: /a login form/i });
+    const heading = getByRole("heading");
+    const email = getByRole("textbox", { name: /email/i });
+    const password = getByLabelText(/password/i);
+    const formLogin = getByRole("form", { name: /a login form/i });
 
     await waitFor(() => {
       fireEvent.change(email, { target: { value: fakeUser.email } });
@@ -42,6 +37,7 @@ describe("Login", () => {
     });
 
     //Assertion
+    expect(container).toBeDefined();
     expect(heading.textContent).toBe("Login");
     expect(email.value).toBe("test user");
     expect(password.value).toBe("123password");
